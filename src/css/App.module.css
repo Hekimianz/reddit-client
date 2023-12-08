@@ -5,5 +5,65 @@
   align-content: space-between;
   justify-items: center;
   gap: 100px;
-  padding: 100px 0;
+  padding: 120px 0;
+}
+
+.nav {
+  position: absolute;
+  background-color: rgb(200, 200, 200);
+  height: 100px;
+  width: 100%;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav img {
+  width: 80px;
+  margin-right: 20px;
+}
+
+.navTitle {
+  font-size: 2em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btnsCont {
+  height: 20px;
+  grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+}
+
+@media screen and (max-width: 1720px) {
+  .appCont {
+    grid-template-columns: 1fr;
+  }
+
+  .btnsCont {
+    grid-column: 1 / 1;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .nav img {
+    width: 80px;
+  }
+
+  .navTitle {
+    font-size: 1.7em;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .nav img {
+    width: 70px;
+  }
+
+  .navTitle {
+    font-size: 1.3em;
+  }
 }
