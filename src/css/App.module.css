@@ -1,0 +1,9 @@
+.appCont {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-content: space-between;
+  justify-items: center;
+  gap: 100px;
+  padding: 100px 0;
+}
