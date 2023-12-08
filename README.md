@@ -10,6 +10,7 @@ This project is a React and Redux-based application that leverages the Reddit AP
 - [Technologies Used](#technologies-used)
 - [Redux Architecture](#redux-architecture)
 - [API Integration](#api-integration)
+- [Wireframes](#wireframes)
 
 ## Features
 
@@ -61,3 +62,6 @@ The application uses Redux for state management, with separate folders for actio
 ## API Integration
 
 The Reddit API is utilized to fetch posts and comments.
+
+## Wireframes
+https://imgur.com/a/QnYkiFE
