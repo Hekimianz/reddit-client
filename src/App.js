@@ -2,11 +2,20 @@
 import Post from "./components/Post";
 import styles from "./css/App.module.css";
 import redditLogo from "./assets/reddit-logo.png";
-import mockData from "./mockData";
 import { v4 as uuidv4 } from "uuid";
+import { loadPosts } from "./components/postsSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectPosts } from "./components/postsSlice";
 
 function App() {
-  const posts = mockData.map((post) => {
+  const dispatch = useDispatch();
+  const allPosts = useSelector(selectPosts);
+  useEffect(() => {
+    dispatch(loadPosts());
+  }, [dispatch]);
+
+  const posts = allPosts.map((post) => {
     return (
       <Post
         title={post.title}
@@ -23,6 +32,7 @@ function App() {
       />
     );
   });
+
   return (
     <div className={styles.appCont}>
       <nav className={styles.nav}>
@@ -32,7 +42,9 @@ function App() {
       {posts}
       <div className={styles.btnsCont}>
         <button className={styles.btn}>Prev Page</button>
-        <button className={styles.btn}>Next Page</button>
+        <button className={styles.btn} onClick={() => console.log(allPosts)}>
+          Next Page
+        </button>
       </div>
     </div>
   );
