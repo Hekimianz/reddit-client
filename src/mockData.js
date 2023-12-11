@@ -20,15 +20,15 @@ const mockData = [
     subreddit: "2meirl4meirl",
     subredditNamePrefixed: "r/2meirl4meirl",
     author: "opliku",
-    title: "2meirl4meirl",
+    title: "Imagine being this self-assuredly foolish.",
     selfText: "",
     numComments: 471,
     score: 11886,
-    media: "https://i.redd.it/qq6wnpd8v25c1.png",
+    media: "https://i.redd.it/h4sbz85zvm5c1.jpeg",
     date: "3 hours ago",
     isImage: true,
     isVideo: false,
-    hasMedia: true,
+    hasMedia: false,
   },
   {
     subreddit: "facepalm",
@@ -47,7 +47,7 @@ const mockData = [
   {
     subreddit: "nextfuckinglevel",
     subredditNamePrefixed: "r/nextfuckinglevel",
-    author: "",
+    author: "VultureIncopetence",
     title:
       "Fashioning ninja throwing stars from obsidian with the help of simple tools.",
     selfText: "",
@@ -58,21 +58,6 @@ const mockData = [
     isImage: false,
     isVideo: true,
     hasMedia: true,
-  },
-  {
-    subreddit: "todayilearned",
-    subredditNamePrefixed: "r/todayilearned",
-    author: "",
-    title:
-      "TIL Van Gogh's sister in law was behind Van Gogh’s posthumous success and fame, She dedicated her life to spreading his art and legacy after his death, She preserved and published his letters, organized and exhibited his paintings, wrote and translated articles and books about him",
-    selfText: "",
-    numComments: 220,
-    score: 15715,
-    media: "https://wikipedia.org/wiki/Johanna_van_Gogh-Bonger",
-    date: "4 hours ago",
-    isImage: false,
-    isVideo: false,
-    hasMedia: null,
   },
 ];
 

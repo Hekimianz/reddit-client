@@ -38,6 +38,10 @@
   gap: 100px;
 }
 
+.btn {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1720px) {
   .appCont {
     grid-template-columns: 1fr;
