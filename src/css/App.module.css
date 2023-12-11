@@ -42,6 +42,31 @@
   cursor: pointer;
 }
 
+.btnDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.loadingDiv {
+  grid-column: 1 / -1;
+}
+
+.loadingWheel {
+  width: 100px;
+  animation: rotate-animation 4s infinite linear;
+}
+
+@keyframes rotate-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media screen and (max-width: 1720px) {
   .appCont {
     grid-template-columns: 1fr;
