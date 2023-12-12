@@ -2,12 +2,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const loadPosts = createAsyncThunk(
   "posts/loadPosts",
-  async (btn = "next") => {
-    const requestPosts = await fetch("https://www.reddit.com/r/popular.json");
+  async (options) => {
+    const requestPosts = await fetch(
+      `https://www.reddit.com/r/${options.sub}.json`
+    );
+
     const json = await requestPosts.json();
     return {
       resp: json,
-      btn: btn,
+      btn: options.btn,
+      sub: options.sub,
     };
   }
 );
@@ -20,6 +24,12 @@ export const postsSlice = createSlice({
     posts: [],
     page: 0,
     upTo: 4,
+    currSub: "popular",
+  },
+  reducers: {
+    changeCurrSub(state, action) {
+      state.currSub = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -35,6 +45,9 @@ export const postsSlice = createSlice({
         if (action.payload.btn === "prev") {
           state.page = state.page - 2;
           state.upTo = state.upTo - 8;
+        } else if (action.payload.btn === "first") {
+          state.page = 0;
+          state.upTo = 4;
         }
         state.isLoading = false;
         state.failedToLoad = false;
@@ -47,21 +60,21 @@ export const postsSlice = createSlice({
               title: post.data.title,
               numComments: post.data["num_comments"],
               score: post.data.score,
-              media:
-                "https://th-thumbnailer.cdn-si-edu.com/bgmkh2ypz03IkiRR50I-UMaqUQc=/1000x750/filters:no_upscale():focal(1061x707:1062x708)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/55/95/55958815-3a8a-4032-ac7a-ff8c8ec8898a/gettyimages-1067956982.jpg",
-              date: "4 hours ago",
-              isImage: true,
-              isVideo: false,
-              hasMedia: true,
+              media: post.data["is_video"] ? null : post.data.url,
+              link: post.data.media ? null : post.data.url,
+              thumbnail: post.data.media ? null : post.data.thumbnail,
+              created: post.data.created,
+              isVideo: post.data["is_video"],
+              videoUrl: post.data["is_video"]
+                ? post.data.media["reddit_video"]["fallback_url"]
+                : null,
+              hasMedia: post.data.media ? true : false,
+              hasContent: post.data["thumbnail"] === "self" ? false : true,
             };
           });
-        if (action.payload.btn === "next") {
-          state.page = state.page + 1;
-          state.upTo = state.upTo + 4;
-        } else {
-          state.page = state.page + 1;
-          state.upTo = state.upTo + 4;
-        }
+
+        state.page = state.page + 1;
+        state.upTo = state.upTo + 4;
       });
   },
 });
@@ -70,5 +83,7 @@ export const selectPosts = (state) => state.posts.posts;
 export const isLoadingPosts = (state) => state.posts.isLoading;
 export const selectState = (state) => state.posts;
 export const selectPage = (state) => state.posts.page;
+export const selectCurrSub = (state) => state.posts.currSub;
+export const { changeCurrSub } = postsSlice.actions;
 
 export default postsSlice.reducer;

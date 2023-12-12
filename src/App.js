@@ -4,39 +4,40 @@ import styles from "./css/App.module.css";
 import redditLogo from "./assets/reddit-logo.png";
 import spinningWheel from "./assets/rotate-right.png";
 import { v4 as uuidv4 } from "uuid";
-import { loadPosts } from "./components/postsSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectPosts,
-  selectState,
   selectPage,
   isLoadingPosts,
+  loadPosts,
+  selectCurrSub,
 } from "./components/postsSlice";
 
 function App() {
+  const currSub = useSelector(selectCurrSub);
   const dispatch = useDispatch();
   const allPosts = useSelector(selectPosts);
   useEffect(() => {
-    dispatch(loadPosts());
-  }, [dispatch]);
-  console.log(useSelector(selectState));
+    dispatch(loadPosts({ btn: "first", sub: currSub }));
+  }, [dispatch, currSub]);
 
   const posts = allPosts.map((post) => {
     return (
       <Post
         title={post.title}
-        sub={post.subredditNamePrefixed}
+        sub={post.subreddit}
         author={post.author}
         numComments={post.numComments}
         score={post.score}
-        date={post.date}
-        media={
-          "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
-        }
-        isImage={post.isImage}
+        media={post.media}
+        created={post.created}
         isVideo={post.isVideo}
         hasMedia={post.hasMedia}
+        videoUrl={post.videoUrl}
+        link={post.link}
+        thumbnail={post.thumbnail}
+        hasContent={post.hasContent}
         key={uuidv4()}
       />
     );
@@ -64,12 +65,15 @@ function App() {
           className={
             useSelector(selectPage) > 1 ? styles.btn : styles.btnDisabled
           }
-          onClick={() => dispatch(loadPosts("prev"))}
+          onClick={() => dispatch(loadPosts({ btn: "prev", sub: currSub }))}
         >
           Prev Page
         </button>
         <span>Page {useSelector(selectPage)}</span>
-        <button className={styles.btn} onClick={() => dispatch(loadPosts())}>
+        <button
+          className={styles.btn}
+          onClick={() => dispatch(loadPosts({ btn: "next", sub: currSub }))}
+        >
           Next Page
         </button>
       </div>
