@@ -50,7 +50,7 @@ function Post(props) {
         ) : (
           <a target="_blank" href={link} rel="noreferrer">
             {hasContent ? (
-              <img src={thumbnail} alt="link" />
+              <img className={styles.postImage} src={thumbnail} alt="link" />
             ) : (
               <button className={styles.conversationBtn}>
                 View Conversation

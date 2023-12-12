@@ -68,7 +68,7 @@ export const postsSlice = createSlice({
               videoUrl: post.data["is_video"]
                 ? post.data.media["reddit_video"]["fallback_url"]
                 : null,
-              hasMedia: post.data.media ? true : false,
+              hasMedia: post.data.preview ? true : false,
               hasContent: post.data["thumbnail"] === "self" ? false : true,
             };
           });
