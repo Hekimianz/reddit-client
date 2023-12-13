@@ -40,6 +40,7 @@ function App() {
         galleryMedia={post.galleryMedia}
         isConversation={post.isConversation}
         conversationUrl={post.conversationUrl}
+        hiddenGallery={post.hiddenGallery}
         key={uuidv4()}
       />
     );

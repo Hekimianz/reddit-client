@@ -18,6 +18,7 @@ function Post(props) {
     videoUrl,
     isGallery,
     galleryMedia,
+
     isImage,
     imageUrl,
     isConversation,
@@ -69,25 +70,11 @@ function Post(props) {
       case "gallery":
         return (
           <div className={styles.galleryCont}>
-            <span
-              className={
-                "material-symbols-outlined" + " " + styles.galleryArrowLeft
-              }
-            >
-              chevron_left
-            </span>
             <img
               className={styles.galleryImage}
               src={galleryMedia[0]}
               alt="post media"
             />
-            <span
-              className={
-                "material-symbols-outlined" + " " + styles.galleryArrowRight
-              }
-            >
-              chevron_right
-            </span>
           </div>
         );
       default:
@@ -104,7 +91,8 @@ function Post(props) {
       </div>
       <div className={styles.innerPostCont}>
         <h1 className={styles.postTitle}>{title}</h1>
-        <div>{renderMedia()}</div>
+        <div className={styles.postMediaCont}>{renderMedia()}</div>
+
         <span
           className={styles.postSub}
           onClick={() => {
@@ -127,7 +115,7 @@ function Post(props) {
           </a>
         </p>
         <p className={styles.postDetail}>Posted {diff} hours ago</p>
-        <p>
+        <p className={styles.postDetail}>
           <a
             className={styles.postLink}
             href={conversationUrl}

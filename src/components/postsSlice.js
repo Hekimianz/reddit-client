@@ -37,6 +37,9 @@ export const postsSlice = createSlice({
     changeCurrSub(state, action) {
       state.currSub = action.payload;
     },
+    toggleGallery(state) {
+      state.test = !state.test;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -73,10 +76,11 @@ export const postsSlice = createSlice({
                 ? post.data.media["reddit_video"]["fallback_url"]
                 : null,
               isGallery: post.data["is_gallery"] ? true : false,
+              hiddenGallery: true,
               galleryMedia: post.data["is_gallery"]
-                ? Object.entries(post.data["media_metadata"]).map((entry) =>
-                    getUrl(entry[1].s.u)
-                  )
+                ? Object.entries(post.data["media_metadata"]).map((entry) => {
+                    return getUrl(entry[1].s.u);
+                  })
                 : null,
               isConversation:
                 post.data.preview || post.data["is_gallery"] ? false : true,

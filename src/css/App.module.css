@@ -102,6 +102,43 @@ li:hover,
   }
 }
 
+@media screen and (max-width: 830px) {
+  ul {
+    gap: 5px;
+  }
+
+  li {
+    padding: 5px 7.5px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  ul {
+    gap: 2.5px;
+  }
+
+  li {
+    padding: 2.5px 3.75px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  ul {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 395px) {
+  .btnsCont {
+    gap: 50px;
+  }
+  .btn,
+  .btnDisabled {
+    padding: 5px 7.5px;
+    font-size: 0.8em;
+  }
+}
+
 @media screen and (max-width: 330px) {
   .nav img {
     width: 80px;
