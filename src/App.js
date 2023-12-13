@@ -12,6 +12,7 @@ import {
   isLoadingPosts,
   loadPosts,
   selectCurrSub,
+  changeCurrSub,
 } from "./components/postsSlice";
 
 function App() {
@@ -30,14 +31,15 @@ function App() {
         author={post.author}
         numComments={post.numComments}
         score={post.score}
-        media={post.media}
         created={post.created}
         isVideo={post.isVideo}
-        hasMedia={post.hasMedia}
         videoUrl={post.videoUrl}
-        link={post.link}
-        thumbnail={post.thumbnail}
-        hasContent={post.hasContent}
+        isImage={post.isImage}
+        imageUrl={post.imageUrl}
+        isGallery={post.isGallery}
+        galleryMedia={post.galleryMedia}
+        isConversation={post.isConversation}
+        conversationUrl={post.conversationUrl}
         key={uuidv4()}
       />
     );
@@ -48,6 +50,48 @@ function App() {
       <nav className={styles.nav}>
         <img src={redditLogo} alt="reddit logo" />
         <span className={styles.navTitle}>Reddit Minimal</span>
+        <ul>
+          <li
+            onClick={() => {
+              dispatch(changeCurrSub("popular"));
+              dispatch(loadPosts({ btn: "first", sub: "popular" }));
+            }}
+          >
+            Popular
+          </li>
+          <li
+            onClick={() => {
+              dispatch(changeCurrSub("askreddit"));
+              dispatch(loadPosts({ btn: "first", sub: "askreddit" }));
+            }}
+          >
+            r/AskReddit
+          </li>
+          <li
+            onClick={() => {
+              dispatch(changeCurrSub("todayilearned"));
+              dispatch(loadPosts({ btn: "first", sub: "todayilearned" }));
+            }}
+          >
+            r/todayilearned
+          </li>
+          <li
+            onClick={() => {
+              dispatch(changeCurrSub("movies"));
+              dispatch(loadPosts({ btn: "first", sub: "movies" }));
+            }}
+          >
+            r/movies
+          </li>
+          <li
+            onClick={() => {
+              dispatch(changeCurrSub("news"));
+              dispatch(loadPosts({ btn: "first", sub: "news" }));
+            }}
+          >
+            r/news
+          </li>
+        </ul>
       </nav>
       {useSelector(isLoadingPosts) ? (
         <div className={styles.loadingDiv}>

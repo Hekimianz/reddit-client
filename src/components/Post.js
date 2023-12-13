@@ -13,14 +13,15 @@ function Post(props) {
     author,
     numComments,
     score,
-    media,
     created,
     isVideo,
     videoUrl,
-    link,
-    thumbnail,
-    hasMedia,
-    hasContent,
+    isGallery,
+    galleryMedia,
+    isImage,
+    imageUrl,
+    isConversation,
+    conversationUrl,
   } = props;
 
   const createdDate = new Date(0);
@@ -29,6 +30,70 @@ function Post(props) {
   const diff = Math.floor(
     (now.valueOf() - createdDate.valueOf()) / 1000 / 60 / 60
   );
+
+  const checkMediaType = () => {
+    if (isVideo) {
+      return "video";
+    } else if (isGallery) {
+      return "gallery";
+    } else if (isImage) {
+      return "image";
+    } else if (isConversation) {
+      return "conversation";
+    }
+  };
+
+  const renderMedia = () => {
+    switch (checkMediaType()) {
+      case "video":
+        return (
+          <video
+            className={styles.postVideo}
+            src={videoUrl}
+            controls
+            muted={false}
+          />
+        );
+      case "image":
+        return (
+          <img className={styles.postImage} src={imageUrl} alt="post media" />
+        );
+      case "conversation":
+        return (
+          <a href={conversationUrl} target="_blank" rel="noreferrer">
+            <button className={styles.conversationBtn}>
+              View Conversation
+            </button>
+          </a>
+        );
+      case "gallery":
+        return (
+          <div className={styles.galleryCont}>
+            <span
+              className={
+                "material-symbols-outlined" + " " + styles.galleryArrowLeft
+              }
+            >
+              chevron_left
+            </span>
+            <img
+              className={styles.galleryImage}
+              src={galleryMedia[0]}
+              alt="post media"
+            />
+            <span
+              className={
+                "material-symbols-outlined" + " " + styles.galleryArrowRight
+              }
+            >
+              chevron_right
+            </span>
+          </div>
+        );
+      default:
+        return <span>Oops something went wrong!</span>;
+    }
+  };
 
   return (
     <div className={styles.postCont}>
@@ -39,26 +104,7 @@ function Post(props) {
       </div>
       <div className={styles.innerPostCont}>
         <h1 className={styles.postTitle}>{title}</h1>
-        {hasMedia ? (
-          isVideo ? (
-            <video src={videoUrl} controls className={styles.postVideo}>
-              this is a video
-            </video>
-          ) : (
-            <img className={styles.postImage} src={media} alt="post media" />
-          )
-        ) : (
-          <a target="_blank" href={link} rel="noreferrer">
-            {hasContent ? (
-              <img className={styles.postImage} src={thumbnail} alt="link" />
-            ) : (
-              <button className={styles.conversationBtn}>
-                View Conversation
-              </button>
-            )}
-          </a>
-        )}
-
+        <div>{renderMedia()}</div>
         <span
           className={styles.postSub}
           onClick={() => {
@@ -81,9 +127,16 @@ function Post(props) {
           </a>
         </p>
         <p className={styles.postDetail}>Posted {diff} hours ago</p>
-        <p className={styles.postDetail}>
-          <img src={commentIcon} alt="comments" />
-          {numComments}
+        <p>
+          <a
+            className={styles.postLink}
+            href={conversationUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img src={commentIcon} alt="comments" />
+            {numComments}
+          </a>
         </p>
       </div>
     </div>

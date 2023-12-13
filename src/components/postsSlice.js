@@ -4,7 +4,7 @@ export const loadPosts = createAsyncThunk(
   "posts/loadPosts",
   async (options) => {
     const requestPosts = await fetch(
-      `https://www.reddit.com/r/${options.sub}.json`
+      `https://www.reddit.com/r/${options.sub}.json?q=raw_json=1`
     );
 
     const json = await requestPosts.json();
@@ -15,6 +15,13 @@ export const loadPosts = createAsyncThunk(
     };
   }
 );
+
+const getUrl = (imgUrl) => {
+  const encoded = imgUrl.replace("amp;s", "s");
+  const doubleEncoded = encoded.replace("amp;", "");
+  const tripleEncoded = doubleEncoded.replace("amp;", "");
+  return tripleEncoded;
+};
 
 export const postsSlice = createSlice({
   name: "posts",
@@ -60,16 +67,32 @@ export const postsSlice = createSlice({
               title: post.data.title,
               numComments: post.data["num_comments"],
               score: post.data.score,
-              media: post.data["is_video"] ? null : post.data.url,
-              link: post.data.media ? null : post.data.url,
-              thumbnail: post.data.media ? null : post.data.thumbnail,
               created: post.data.created,
-              isVideo: post.data["is_video"],
+              isVideo: post.data["is_video"] ? true : false,
               videoUrl: post.data["is_video"]
                 ? post.data.media["reddit_video"]["fallback_url"]
                 : null,
-              hasMedia: post.data.preview ? true : false,
-              hasContent: post.data["thumbnail"] === "self" ? false : true,
+              isGallery: post.data["is_gallery"] ? true : false,
+              galleryMedia: post.data["is_gallery"]
+                ? Object.entries(post.data["media_metadata"]).map((entry) =>
+                    getUrl(entry[1].s.u)
+                  )
+                : null,
+              isConversation:
+                post.data.preview || post.data["is_gallery"] ? false : true,
+              conversationUrl: post.data.url,
+              isImage:
+                !post.data["is_video"] &&
+                !post.data["is_gallery"] &&
+                post.data.preview
+                  ? true
+                  : false,
+              imageUrl:
+                !post.data["is_video"] &&
+                !post.data["is_gallery"] &&
+                post.data.preview
+                  ? getUrl(post.data.preview.images[0].source.url)
+                  : null,
             };
           });
 

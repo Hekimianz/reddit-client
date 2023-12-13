@@ -4,10 +4,10 @@
   grid-template-rows: 0.5fr 0.2fr 0.5fr 1fr 1fr 1fr;
   gap: 20px;
   width: 800px;
-  height: 600px;
   border: 1px solid black;
   border-radius: 32px;
   background-color: rgb(240, 240, 240);
+  padding: 20px 0;
 }
 
 .votesCont {
@@ -43,11 +43,53 @@
 }
 
 .postImage {
-  height: 200px;
+  height: 300px;
+  transition: 0.2s all;
+  cursor: pointer;
+}
+
+.galleryCont {
+  position: relative;
+  height: 300px;
+}
+
+.galleryImage {
+  height: 100%;
+}
+
+.galleryArrowLeft,
+.galleryArrowRight {
+  font-size: 4em;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  position: absolute;
+  transform: translate(-0%, -50%);
+  top: 50%;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+.galleryArrowLeft:hover,
+.galleryArrowRight:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.galleryArrowLeft {
+  left: 10px;
+}
+
+.galleryArrowRight {
+  right: 10px;
+}
+
+.postImage:hover {
+  position: relative;
+  transform: scale(1.5);
+  z-index: 1;
 }
 
 .postVideo {
-  height: 80%;
+  height: 400px;
 }
 
 .postSub {
@@ -69,13 +111,38 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-.postDetail {
+.postDetail,
+.postLink {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
   opacity: 0.7;
   text-wrap: wrap;
+}
+.postLink {
+  text-decoration: none;
+  color: black;
+}
+
+.postLink:hover {
+  text-decoration: underline;
+}
+
+.conversationBtn {
+  border: 1px solid black;
+  padding: 10px 15px;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+.conversationBtn:hover {
+  text-decoration: underline;
+  transform: scale(1.05);
+  background-color: #136cdf;
+  color: white;
 }
 
 @media screen and (max-width: 840px) {

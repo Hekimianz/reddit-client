@@ -57,6 +57,31 @@
   animation: rotate-animation 4s infinite linear;
 }
 
+ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+li,
+.btn,
+.btnDisabled {
+  border: 1px solid black;
+  padding: 10px 15px;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+li:hover,
+.btn:hover {
+  text-decoration: underline;
+  transform: scale(1.05);
+  background-color: #136cdf;
+  color: white;
+}
+
 @keyframes rotate-animation {
   0% {
     transform: rotate(0deg);
